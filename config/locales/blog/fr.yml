@@ -1,0 +1,12 @@
+fr:
+  post:
+    posted: Par {{by}} le {{at}}
+    one: article
+    other: articles
+    all: Tous les articles
+    author: auteur
+    states:
+      drafted: brouillon
+      published: publié
+    create:
+      action: créer un article

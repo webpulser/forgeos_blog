@@ -1,0 +1,22 @@
+<% 
+  output = {
+    :iTotalDisplayRecords => @posts.total_entries || 0,
+    :aaData => @posts.collect do |post|
+      link_id = "post_#{post.id}"
+      [
+        content_tag(:div, '<div class="handler"></div><div class="small-icons post"></div>', :id => link_id, :class => 'handler_container'),
+        content_tag(:div, link_to(post.name, [:admin, post]), :class => 'product-name'),
+        post.person ? post.person.fullname : nil,
+        link_to('', [:edit, :admin, post], :class => 'small-icons edit-link') +
+        link_to_remote('', :url => [:admin, post],
+         :method => :delete,
+         :confirm => t('post.destroy.confirm').capitalize,
+         :success => "removedataTablesRow('#destroy_#{link_id}')",
+         :html => {
+         :class => 'small-icons destroy-link', :id => "destroy_#{link_id}"
+        })
+      ]
+    end
+  }
+-%>
+<%= output.to_json -%>

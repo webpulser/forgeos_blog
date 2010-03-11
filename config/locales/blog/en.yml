@@ -1,0 +1,12 @@
+en:
+  post:
+    posted: By {{by}} the {{at}}
+    one: post
+    other: posts 
+    all: All posts
+    author: author
+    status:
+      drafted: drafted
+      published: published
+    create:
+      action: create a post
