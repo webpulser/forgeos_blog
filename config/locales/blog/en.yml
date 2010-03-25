@@ -10,3 +10,5 @@ en:
       published: published
     create:
       action: create a post
+  comment:
+    author_email: email

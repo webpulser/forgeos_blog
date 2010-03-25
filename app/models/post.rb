@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
   include AASM
   acts_as_taggable
   acts_as_commentable
+  accepts_nested_attributes_for :comments, :allow_destroy => true
   has_and_belongs_to_many_attachments
 
   belongs_to :person

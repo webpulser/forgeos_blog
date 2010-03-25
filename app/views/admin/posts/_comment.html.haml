@@ -1,0 +1,33 @@
+- item = f.object
+- link_id = "item_#{item.id}"
+
+.block-container.widget-modify.comment{:id => link_id}
+  .inner_block-container
+    .block-type
+      = item.created_at
+      %br
+      %span= item.author
+    .block-type.editing
+      %label
+        = "#{I18n.t('comment.author').capitalize} :"
+      %label
+        = "#{I18n.t('comment.author_email').capitalize} :"
+      %label
+        = "#{I18n.t('comment', :count => 1).capitalize} :"
+    .block-name
+      %p=h item.comment
+    .block-name.editing{:id => "edit_#{link_id}"}
+      = f.hidden_field :_destroy, :class => 'delete'
+      = f.text_field :author
+      = f.text_field :author_email
+      = f.text_area :comment, :cols => 10, :rows => 2
+      .actions
+        = link_to_function content_tag(:span,I18n.t('save_changes'), :class => 'small-icons save'), "update_comment($('#item_#{item.id}'), $('#edit_item_#{item.id}'))", :class => 'backgrounds action-button'
+
+        = I18n.t('or')
+        = link_to I18n.t('cancel').capitalize, '#', :class => 'back-link'
+
+    .widget-actions
+      = link_to '','#', :class => 'small-icons edit-link'
+      = link_to_function '', "remove_comment($(this));", :class => 'small-icons destroy-link'
+    .clear

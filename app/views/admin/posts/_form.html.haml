@@ -20,6 +20,12 @@
         %div
           = f.text_area :content, :class => 'mceEditor'
         .clear
+
+        .fieldset.open
+          = link_to t('comment',:count=> 2), '#', :class => 'small-icons panel'
+          .option-panel-content
+            - f.fields_for :comments do |comment_form|
+              = render :partial => 'comment', :locals => { :f => comment_form }
     #right-sidebar.grid_4.omega
       .step.status.open
         - states_for_select = Post.aasm_states.collect{ |state| [t(state.name, :scope => [:post,:states]),state.name.to_s] }

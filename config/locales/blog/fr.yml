@@ -10,3 +10,5 @@ fr:
       published: publié
     create:
       action: créer un article
+  comment:
+    author_email: courriel
