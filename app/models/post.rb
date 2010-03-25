@@ -14,16 +14,16 @@ class Post < ActiveRecord::Base
   validates_presence_of :url, :name, :content
 
   aasm_column :state
-  aasm_initial_state :drafted
-  aasm_state :drafted
+  aasm_initial_state :draft
+  aasm_state :draft
   aasm_state :published
 
   aasm_event :publish do
-    transitions :to => :drafted, :from => :published
+    transitions :to => :draft, :from => :published
   end
 
-  aasm_event :draft do
-    transitions :to => :published, :from => :drafted
+  aasm_event :throw do
+    transitions :to => :published, :from => :draft
   end
 
   def aasm_current_state_with_event_firing=(state)

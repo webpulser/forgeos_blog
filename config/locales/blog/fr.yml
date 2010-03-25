@@ -1,4 +1,7 @@
 fr:
+  back_office:
+    menu:
+      posts: articles
   post:
     posted: Par {{by}} le {{at}}
     one: article
@@ -6,7 +9,7 @@ fr:
     all: Tous les articles
     author: auteur
     states:
-      drafted: brouillon
+      draft: brouillon
       published: publié
     create:
       action: créer un article

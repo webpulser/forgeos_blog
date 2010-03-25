@@ -1,4 +1,7 @@
 en:
+  back_office:
+    menu:
+      posts: posts
   post:
     posted: By {{by}} the {{at}}
     one: post
@@ -6,7 +9,7 @@ en:
     all: All posts
     author: author
     status:
-      drafted: drafted
+      draft: draft
       published: published
     create:
       action: create a post
