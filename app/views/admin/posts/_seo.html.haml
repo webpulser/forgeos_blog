@@ -1,0 +1,31 @@
+.grid_12
+  .fieldset.open
+    %h3.permalink
+      = I18n.t('permalink').capitalize
+      \:
+    .option-panel-content
+      = "#{request.protocol}#{request.host}#{seo_post_path(Post.new(:url=>'&nbsp;'))}"
+      = f.text_field :url
+  .fieldset.open
+    %h3= t('meta')
+    .option-panel-content.meta
+      - post.build_meta_info unless post.meta_info
+      - f.fields_for :meta_info do |meta_info|
+        %p
+          %span
+            = I18n.t('title').capitalize
+            \:
+          .clear
+          = meta_info.text_field :title, :class => 'text', :size => 90
+        %p
+          %span
+            = I18n.t('description').capitalize
+            \:
+          .clear
+          = meta_info.text_area :description, :class => 'text', :cols => 90, :rows => 5
+        %p
+          %span
+            = I18n.t('keyword', :count => 2).capitalize
+            \:
+          .clear
+          = meta_info.text_area :keywords, :class => 'text', :cols => 90, :rows => 5

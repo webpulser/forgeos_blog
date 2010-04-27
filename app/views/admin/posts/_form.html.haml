@@ -1,67 +1,12 @@
-- form_for [:admin , post], :html => { :id => 'wrap' } do |f|
-  .backgrounds.big-header
-    = f.text_field :name, :class => 'field_name'
-    = Forgeos_save_buttons admin_posts_path
-
+= render :partial => 'admin/menus/lang_switcher'
+- form_for [:admin, post], :html => { :id => 'wrap' } do |f|
+  = render :partial => 'tabs_show'
   #content.grid_16.alpha.omega
-    .grid_12.alpha
-      .inner-content
-        %h2.permalink
-          = t('permalink').capitalize
-          \:
-          = seo_post_path(Post.new(:url=>'&nbsp;'))
-          = f.text_field :url
-        .clear
-        = f.label :person_id, t('post.author')
-        %div
-          = f.collection_select :person_id,Person.all, :id, :fullname, { :prompt => t(:please_select)}
-        .clear
-        = f.label :content, t(:content)
-        %div
-          = f.text_area :content, :class => 'mceEditor'
-        .clear
-
-        .fieldset.open
-          = link_to t('comment',:count=> 2), '#', :class => 'small-icons panel'
-          .option-panel-content
-            - f.fields_for :comments do |comment_form|
-              = render :partial => 'comment', :locals => { :f => comment_form }
-    #right-sidebar.grid_4.omega
-      .step.status.open
-        - states_for_select = Post.aasm_states.collect{ |state| [t(state.name, :scope => [:post,:states]),state.name.to_s] }
-        = f.select :aasm_current_state_with_event_firing, options_for_select(states_for_select, post.state)
-        .clear
-      #posts_tags.step.open
-        = link_to t(:tag, :count => 2), '#', :class => 'small-icons step-title'
-        .inner-step.tags
-          .wrap_tags
-            = hidden_field_tag 'tag_list[]', ''
-            %input#tag.backgrounds{ :name => "tag", :type => "text", :title => t('tag_enter').capitalize, :class => 'defaultValue' }
-            - post.tag_list.each do |tag|
-              %span
-                = tag
-                = hidden_field_tag 'tag_list[]', tag
-                = link_to '&nbsp;', '#', :class => 'big-icons gray-destroy'
-          .clear
-      #posts_meta.step.open
-        = link_to t(:meta_description, :count => 2), '#', :class => 'small-icons step-title'
-        .inner-step.meta
-          - post.build_meta_info unless post.meta_info
-          - f.fields_for :meta_info do |meta_info|
-            %p
-              %span
-                = t('title').capitalize
-                \:
-              = meta_info.text_area :title, :class => 'text'
-            %p
-              %span
-                = t('description').capitalize
-                \:
-              = meta_info.text_area :description, :class => 'text'
-            %p
-              %span
-                = t('keyword', :count => 2).capitalize
-                \:
-              = meta_info.text_area :keywords, :class => 'text'
-        .clear
-  .clear
+    #general{:style => 'padding: 0'}
+      = render :partial => 'general', :locals => {:f => f, :post => post }
+      .clear
+    #comments{:style => 'padding: 0'}
+      = render :partial => 'comments', :locals => { :f => f, :post => post }
+    #seo{:style => 'padding: 0'}
+      = render :partial => 'seo', :locals => { :f => f, :post => post }
+    .clear

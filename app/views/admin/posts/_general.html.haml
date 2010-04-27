@@ -1,0 +1,15 @@
+.grid_12.alpha
+  .inner-content
+    .clear
+    = f.label :content, t(:content)
+    %div
+      = f.text_area :content, :class => 'mceEditor'
+    .clear
+#right-sidebar.grid_4.omega
+  .step.status.open
+    - states_for_select = Post.aasm_states.collect{ |state| [t(state.name, :scope => [:post,:states]),state.name.to_s] }
+    %div= f.select :aasm_current_state_with_event_firing, options_for_select(states_for_select, post.state)
+    = f.label :person_id, t('post.author')
+    %div= f.collection_select :person_id,Person.all, :id, :fullname, { :prompt => t(:please_select)}
+
+    .clear
