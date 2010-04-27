@@ -1,9 +1,10 @@
 .grid_12.alpha
   .inner-content
+    = f.label :name, t(:name)
+    %div= f.text_field :name, :class => 'big_orange_input'
     .clear
     = f.label :content, t(:content)
-    %div
-      = f.text_area :content, :class => 'mceEditor'
+    %div= f.text_area :content, :class => 'mceEditor'
     .clear
 #right-sidebar.grid_4.omega
   .step.status.open
