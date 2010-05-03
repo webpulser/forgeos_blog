@@ -1,7 +1,7 @@
 class Blog::PostsController < ApplicationController
   before_filter :get_defaults
   def index
-    @category = PostCategory.find_by_url(params[:blog_category_id])
+    @category = PostCategory.find_by_url(params[:blog_category_id]) || PostCategory.find_by_id(params[:blog_category_id])
     paginate_options = {:page => params[:page], :per_page => (params[:per_page] || 5), :order => 'posts.published_at ASC', :conditions => { :state => 'published'}}
     @posts = @category ? @category.elements.paginate(paginate_options) : Post.paginate(paginate_options)
     respond_to do |format|
