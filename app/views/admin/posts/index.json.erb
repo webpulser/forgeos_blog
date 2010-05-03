@@ -1,4 +1,5 @@
 <% 
+  states_for_select = Post.aasm_states.collect{ |state| [t(state.name, :scope => [:post,:states]),state.name.to_s] }
   output = {
     :iTotalDisplayRecords => @posts.total_entries || 0,
     :aaData => @posts.collect do |post|
@@ -6,7 +7,9 @@
       [
         content_tag(:div, '<div class="handler"></div><div class="small-icons post"></div>', :id => link_id, :class => 'handler_container'),
         content_tag(:div, link_to(post.name, [:admin, post]), :class => 'product-name'),
-        post.person ? post.person.fullname : '-',
+        post.author ? post.author.fullname : '-',
+        select_tag(:status, options_for_select(states_for_select,post.state), :class => 'published'),
+        post.published_at ? post.published_at.to_s(:db) : '-',
         link_to('', [:edit, :admin, post], :class => 'small-icons edit-link') +
         link_to_remote('', :url => [:admin, post],
          :method => :delete,

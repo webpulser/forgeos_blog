@@ -12,5 +12,13 @@
     %div= f.select :aasm_current_state_with_event_firing, options_for_select(states_for_select, post.state)
     = f.label :person_id, t('post.author')
     %div= f.collection_select :person_id,Person.all, :id, :fullname, { :prompt => t(:please_select)}
-
+    = f.label :published_at, t('post.published_at')
+    = f.text_field :published_at, :size => 10, :class => 'date-picker'
+    .clear
+  .step.open
+    %a.small-icons.step-title{ :href => "#" }
+      = "#{I18n.t('folder.associated_to').capitalize} :"
+    #association-static-content-tree.inner-step.init-tree
+      %ul
+        = render :partial => 'admin/categories/associated_elements', :locals => { :association_id => 'category_ids', :element => post, :category_ids => post.category_ids, :categories => PostCategory.find_all_by_parent_id(nil) }
     .clear

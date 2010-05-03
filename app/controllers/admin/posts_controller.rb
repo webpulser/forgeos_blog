@@ -85,7 +85,7 @@ private
   end
 
   def sort
-    columns = %w(post_translations.name post_translations.name people.name)
+    columns = %w(post_translations.name post_translations.name people.lastname posts.state published_at)
 
     if params[:sSearch] && !params[:sSearch].blank?
       columns = %w(name name author)
