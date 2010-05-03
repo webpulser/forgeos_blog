@@ -6,7 +6,7 @@
       [
         content_tag(:div, '<div class="handler"></div><div class="small-icons post"></div>', :id => link_id, :class => 'handler_container'),
         content_tag(:div, link_to(post.name, [:admin, post]), :class => 'product-name'),
-        post.person ? post.person.fullname : nil,
+        post.person ? post.person.fullname : '-',
         link_to('', [:edit, :admin, post], :class => 'small-icons edit-link') +
         link_to_remote('', :url => [:admin, post],
          :method => :delete,
