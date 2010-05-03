@@ -5,9 +5,11 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :comments, :allow_destroy => true
   has_and_belongs_to_many_attachments
 
-  belongs_to :person
+  belongs_to :author, :foreign_key => 'person_id', :class_name => 'Person'
   has_one :meta_info, :as => :target
   accepts_nested_attributes_for :meta_info
+  
+  has_and_belongs_to_many :categories, :readonly => true, :join_table => 'categories_elements', :foreign_key => 'element_id', :association_foreign_key => 'category_id', :class_name => 'PostCategory'
 
   translates :name, :content, :url
 
