@@ -1,18 +1,18 @@
 en:
   back_office:
     menu:
-      posts: posts
-  post:
-    posted: By {{by}} the {{at}}
-    one: post
-    other: posts 
-    all: All posts
+      papers: blog posts
+  paper:
+    papered: By {{by}} the {{at}}
+    one: blog post
+    other: blog posts 
+    all: All blog posts
     author: author
     status:
       draft: draft
       published: published
     create:
-      action: create a post
+      action: create a paper
     published_at: published at
   comment:
     author_email: email

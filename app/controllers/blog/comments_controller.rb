@@ -4,8 +4,8 @@ class Blog::CommentsController < ApplicationController
   include BlogHelper
   rakismet_filter :only => :create
   def create
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.build(params[:comment])
+    @paper = Paper.find(params[:paper_id])
+    @comment = @paper.comments.build(params[:comment])
     unless @comment.spam?
       if @comment.valid?
         @comment.save
@@ -15,6 +15,6 @@ class Blog::CommentsController < ApplicationController
     else
       flash[:notice] = @comment.akismet_response
     end
-    redirect_to(seo_post_path(@post))
+    redirect_to(seo_paper_path(@paper))
   end
 end

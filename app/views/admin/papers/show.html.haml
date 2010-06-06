@@ -1,0 +1,11 @@
+= render :partial => 'tabs'
+#wrap
+  .backgrounds.big-header
+    %h1= @paper.name
+    .interact-links
+      = link_to t('paper.update.action').capitalize, [:edit, :admin, @paper ], :class => 'backgrounds interact-button'
+      = t('or')
+      = link_to t('paper.back').capitalize, admin_papers_path, :class => 'back-link'
+
+  #content.grid_16.alpha.omega
+  .clear

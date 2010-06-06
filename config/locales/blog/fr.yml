@@ -1,11 +1,11 @@
 fr:
   back_office:
     menu:
-      posts: articles
-  post:
-    posted: Par {{by}} le {{at}}
-    one: article
-    other: articles
+      papers: articles de blog
+  paper:
+    papered: Par {{by}} le {{at}}
+    one: article de blog
+    other: articles de blog
     all: Tous les articles
     author: auteur
     states:

@@ -1,0 +1,25 @@
+<% 
+  states_for_select = Paper.aasm_states.collect{ |state| [t(state.name, :scope => [:paper,:states]),state.name.to_s] }
+  output = {
+    :iTotalDisplayRecords => @papers.total_entries || 0,
+    :aaData => @papers.collect do |paper|
+      link_id = "paper_#{paper.id}"
+      [
+        content_tag(:div, '<div class="handler"></div><div class="small-icons paper"></div>', :id => link_id, :class => 'handler_container'),
+        content_tag(:div, link_to(paper.name, [:admin, paper]), :class => 'product-name'),
+        paper.author ? paper.author.fullname : '-',
+        select_tag(:status, options_for_select(states_for_select,paper.state), :class => 'published'),
+        paper.published_at ? paper.published_at.to_s(:db) : '-',
+        link_to('', [:edit, :admin, paper], :class => 'small-icons edit-link') +
+        link_to_remote('', :url => [:admin, paper],
+         :method => :delete,
+         :confirm => t('paper.destroy.confirm').capitalize,
+         :success => "removedataTablesRow('#destroy_#{link_id}')",
+         :html => {
+         :class => 'small-icons destroy-link', :id => "destroy_#{link_id}"
+        })
+      ]
+    end
+  }
+-%>
+<%= output.to_json -%>

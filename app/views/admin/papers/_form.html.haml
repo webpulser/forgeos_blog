@@ -1,0 +1,12 @@
+= render :partial => 'admin/menus/lang_switcher'
+- form_for [:admin, paper], :html => { :id => 'wrap' } do |f|
+  = render :partial => 'tabs_show'
+  #content.grid_16.alpha.omega
+    #general{:style => 'padding: 0'}
+      = render :partial => 'general', :locals => {:f => f, :paper => paper }
+      .clear
+    #comments{:style => 'padding: 0'}
+      = render :partial => 'comments', :locals => { :f => f, :paper => paper }
+    #seo{:style => 'padding: 0'}
+      = render :partial => 'seo', :locals => { :f => f, :paper => paper }
+    .clear

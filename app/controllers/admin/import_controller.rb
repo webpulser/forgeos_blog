@@ -1,13 +1,13 @@
 class Admin::ImportController < Admin::BaseController
   before_filter :blog_models, :only => :index
 
-  map_fields :create_post, (Post.new.attributes.keys + Post.new.translated_attributes.stringify_keys.keys).sort
-  def create_post
-    create_model(Post,nil)
+  map_fields :create_paper, (Paper.new.attributes.keys + Paper.new.translated_attributes.stringify_keys.keys).sort
+  def create_paper
+    create_model(Paper,nil)
   end
 
   private
   def blog_models
-    @models << 'post'
+    @models << 'paper'
   end
 end

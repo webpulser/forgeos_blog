@@ -1,7 +1,7 @@
-class Admin::PostsController < Admin::BaseController
-  cache_sweeper :post_sweeper, :only => [:create, :update, :destroy]
-  before_filter :get_post, :only => [:edit, :update, :destroy, :show]
-  before_filter :new_post, :only => [:new, :create]
+class Admin::PapersController < Admin::BaseController
+  cache_sweeper :paper_sweeper, :only => [:create, :update, :destroy]
+  before_filter :get_paper, :only => [:edit, :update, :destroy, :show]
+  before_filter :new_paper, :only => [:new, :create]
  
   def url
     render :text => Forgeos::url_generator(params[:url])
@@ -24,68 +24,68 @@ class Admin::PostsController < Admin::BaseController
   def show
   end
 
-  # Create a Post
+  # Create a Paper
   # ==== Params
-  # * post = Hash of Post's attributes
+  # * paper = Hash of Paper's attributes
   #
-  # The Post can be a child of another Post.
+  # The Paper can be a child of another Paper.
   def create
-    if @post.save
-      flash[:notice] = t('post.create.success').capitalize
-      redirect_to(admin_posts_path)
+    if @paper.save
+      flash[:notice] = t('paper.create.success').capitalize
+      redirect_to(admin_papers_path)
     else
-      flash[:error] = t('post.create.failed').capitalize
+      flash[:error] = t('paper.create.failed').capitalize
       render :action => 'new'
     end
   end
 
-  # Edit a Post
+  # Edit a Paper
   # ==== Params
-  # * id = Post's id to edit
-  # * post = Hash of Post's attributes
+  # * id = Paper's id to edit
+  # * paper = Hash of Paper's attributes
   #
-  # The Post can be a child of another Post.
+  # The Paper can be a child of another Paper.
   def edit
   end
  
   def update
-    if @post.update_attributes(params[:post])
-      flash[:notice] = t('post.update.success').capitalize
-      redirect_to(admin_posts_path)
+    if @paper.update_attributes(params[:paper])
+      flash[:notice] = t('paper.update.success').capitalize
+      redirect_to(admin_papers_path)
     else
-      flash[:error] = t('post.update.failed').capitalize
+      flash[:error] = t('paper.update.failed').capitalize
       render :action => 'edit'
     end
   end
 
-  # Destroy a Post
+  # Destroy a Paper
   # ==== Params
-  # * id = Post's id
+  # * id = Paper's id
   # ==== Output
   #  if destroy succed, return the Categories list
   def destroy
-    if @post.destroy
-      flash[:notice] = t('post.destroy.success').capitalize
+    if @paper.destroy
+      flash[:notice] = t('paper.destroy.success').capitalize
     else
-      flash[:error] = t('post.destroy.failed').capitalize
+      flash[:error] = t('paper.destroy.failed').capitalize
     end
     render :text => true
   end
 
 private
-  def get_post
-    unless @post = Post.find_by_id(params[:id])
-      flash[:error] = t('post.not_exist').capitalize
+  def get_paper
+    unless @paper = Paper.find_by_id(params[:id])
+      flash[:error] = t('paper.not_exist').capitalize
       return redirect_to(:action => :index)
     end
   end
   
-  def new_post
-    @post = Post.new(params[:post])
+  def new_paper
+    @paper = Paper.new(params[:paper])
   end
 
   def sort
-    columns = %w(post_translations.name post_translations.name people.lastname posts.state published_at)
+    columns = %w(paper_translations.name paper_translations.name people.lastname papers.state published_at)
 
     if params[:sSearch] && !params[:sSearch].blank?
       columns = %w(name name author)
@@ -104,12 +104,12 @@ private
     
     if params[:category_id]
       conditions[:categories_elements] = { :category_id => params[:category_id] }
-      includes << :post_categories
+      includes << :paper_categories
       joins = []
     end
 
     if params[:ids]
-      conditions[:posts] = { :id => params[:ids].split(',') }
+      conditions[:papers] = { :id => params[:ids].split(',') }
     end
 
     options[:conditions] = conditions unless conditions.empty?
@@ -118,13 +118,13 @@ private
     options[:joins] = joins
 
     if params[:sSearch] && !params[:sSearch].blank?
-      options[:index] = "post_core.post_#{ActiveRecord::Base.locale}_core"
+      options[:index] = "paper_core.paper_#{ActiveRecord::Base.locale}_core"
       options[:sql_order] = options.delete(:order)
       options[:joins] += options.delete(:include)
-      @posts = Post.search(params[:sSearch],options)
+      @papers = Paper.search(params[:sSearch],options)
     else
-      options[:group] = :post_id
-      @posts = Post.paginate(:all,options)
+      options[:group] = :paper_id
+      @papers = Paper.paginate(:all,options)
     end
   end
 end
