@@ -3,7 +3,7 @@ en:
     menu:
       papers: blog posts
   paper:
-    papered: By {{by}} the {{at}}
+    posted: By {{by}} the {{at}}
     one: blog post
     other: blog posts 
     all: All blog posts
