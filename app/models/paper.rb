@@ -13,7 +13,7 @@ class Paper < ActiveRecord::Base
 
   translates :name, :content, :url
 
-  validates_presence_of :url, :name, :content
+  validates_presence_of :url, :name, :content, :person_id
 
   aasm_column :state
   aasm_initial_state :draft
