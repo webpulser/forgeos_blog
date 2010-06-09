@@ -7,6 +7,7 @@ jQuery(document).ready(function(){
   });
   //Edition mode in widget carousel item edit
   $('.block-container.widget-modify.comment .edit-link, .block-container.widget-modify.comment .back-link').live('click',function(e){
+    e.preventDefault();
     var blockContainer = $(this).parents('.block-container.widget-modify').find('.inner_block-container');
     var blockNameBlocks = blockContainer.children('.block-name');
     var blockType = blockContainer.children('.block-type');
@@ -26,7 +27,7 @@ jQuery(document).ready(function(){
         $(edition_block).find('input, textarea, select').each(function(){
             switch(get_rails_element_id($(this)))
               {
-              case 'author':
+              case 'name':
                 $(blockType[0]).find('span').text($(this).val());
                 break;
               case 'comment':
@@ -41,7 +42,7 @@ jQuery(document).ready(function(){
         $(edition_block).find('input, textarea, select').each(function(){
             switch(get_rails_element_id($(this)))
               {
-              case 'author':
+              case 'name':
                 $(this).val($(blockType[0]).find('span').text().trim());
                 break;
               case 'comment':
@@ -51,7 +52,6 @@ jQuery(document).ready(function(){
           });
       }
     }
-    e.preventDefault();
     return false;
   });  
 });
