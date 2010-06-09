@@ -11,7 +11,7 @@ class Paper < ActiveRecord::Base
   
   has_and_belongs_to_many :categories, :readonly => true, :join_table => 'categories_elements', :foreign_key => 'element_id', :association_foreign_key => 'category_id', :class_name => 'PaperCategory'
 
-  translates :name, :content, :url
+  translates :name, :content, :url, :description
 
   validates_presence_of :url, :name, :content, :person_id
 
