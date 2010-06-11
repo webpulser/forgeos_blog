@@ -1,5 +1,6 @@
 class PaperSweeper < ActionController::Caching::Sweeper
-  observe Paper
+  include BlogHelper
+  observe Paper, Comment, PaperCategory
 
   def after_save(record)
     expire_cache_for(record)
@@ -14,9 +15,26 @@ class PaperSweeper < ActionController::Caching::Sweeper
   end
 
   private
-  
   def expire_cache_for(record)
-    #expire_cache blog_root_path
-    #expire_cache blog_paper_path(record)
+    case record
+    when Paper
+      expire_cache_for_paper(record)
+    when PaperCategory
+      expire_all_papers
+    when Comment
+      expire_cache_for_paper(record.commentable)
+    else
+      true
+    end
+  end
+
+  def expire_cache_for_paper(paper)
+    expire_page(seo_paper_path(paper))
+  end
+
+  def expire_all_papers
+    Paper.all.each do |paper|
+      expire_cache_for_paper(paper)
+    end
   end
 end
