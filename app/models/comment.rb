@@ -1,4 +1,4 @@
-require File.join(Rails.plugins[:forgeos_cms].directory,'app','models','comment')
+require File.join(Rails.root,'vendor','plugins','forgeos_cms','app','models','comment')
 require 'rakismet/model'
 class Comment < ActiveRecord::Base
   include Rakismet::Model
