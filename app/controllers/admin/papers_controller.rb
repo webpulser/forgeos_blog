@@ -98,9 +98,9 @@ private
     order = "#{columns[order_column]} #{params[:iSortDir_0].upcase}"
 
     conditions = {}
-    includes = [:globalize_translations]
+    includes = [:translations]
     options = { :page => page, :per_page => per_page }
-    joins = [:globalize_translations]
+    joins = [:translations]
     
     if params[:category_id]
       conditions[:categories_elements] = { :category_id => params[:category_id] }
