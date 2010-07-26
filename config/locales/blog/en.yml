@@ -8,7 +8,7 @@ en:
     other: blog posts 
     all: All blog posts
     author: author
-    status:
+    states:
       draft: draft
       published: published
     create:

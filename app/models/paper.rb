@@ -15,6 +15,8 @@ class Paper < ActiveRecord::Base
 
   validates_presence_of :url, :name, :content, :person_id
 
+  has_many :viewed_counters, :as => :element, :class_name => 'PaperViewedCounter'
+
   aasm_column :state
   aasm_initial_state :draft
   aasm_state :draft

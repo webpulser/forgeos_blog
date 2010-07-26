@@ -1,6 +1,6 @@
 class Blog::PapersController < ApplicationController
   before_filter :get_defaults
-  caches_page :show 
+  caches_page :show, :unless => Proc.new { params[:format] == 'js' }
   def index
     @category = PaperCategory.find_by_url(params[:blog_category_id]) || PaperCategory.find_by_id(params[:blog_category_id]) if params[:blog_category_id]
     paginate_options = {:page => params[:page], :per_page => (params[:per_page] || 5), :order => 'papers.published_at DESC', :conditions => { :state => 'published'}}
@@ -15,6 +15,12 @@ class Blog::PapersController < ApplicationController
 
   def show
     @paper = Paper.find_by_url(params[:id])
+    unless cookies[:paper_view_counter] && cookies[:paper_view_counter].include?(@paper.id)
+      @paper.viewed_counters.new.increment_counter
+      counter = cookies[:paper_view_counter] ? cookies[:paper_view_counter] :  []
+      counter << @paper.id
+      cookies[:paper_view_counter] = { :value => counter, :expires => 1.day.from_now }
+    end
   end
 
   private

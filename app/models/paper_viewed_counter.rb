@@ -1,0 +1,2 @@
+class PaperViewedCounter < StatisticCounter
+end

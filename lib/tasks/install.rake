@@ -4,6 +4,11 @@ namespace :forgeos do
       system "rsync -rvC #{File.join('vendor','plugins','forgeos_blog','public')} ."
     end
 
-    task :install => [:sync]
+    task :initialize => :environment do
+      system "rake 'forgeos:core:generate:acl[#{File.join('vendor','plugins','forgeos_blog')}]'"
+    end
+
+    task :install => [:initialize,:sync]
   end
+
 end
