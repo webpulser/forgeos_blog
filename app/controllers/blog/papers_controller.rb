@@ -3,7 +3,15 @@ class Blog::PapersController < ApplicationController
   caches_page :show, :unless => Proc.new { params[:format] == 'js' }
   def index
     @category = PaperCategory.find_by_url(params[:blog_category_id]) || PaperCategory.find_by_id(params[:blog_category_id]) if params[:blog_category_id]
-    paginate_options = {:page => params[:page], :per_page => (params[:per_page] || 5), :order => 'papers.published_at DESC', :conditions => { :state => 'published'}}
+    paginate_options = {:page => params[:page], :per_page => (params[:per_page] || 5), :conditions => { :state => 'published'}}
+    case params[:sort_by]
+    when 'popularity'
+      paginate_options[:order] = "sum(#{PaperViewedCounter.table_name}.counter) DESC"
+      paginate_options[:include] = :viewed_counters
+      paginate_options[:group] = "papers.id"
+    else
+      paginate_options[:order] = 'papers.published_at DESC'
+    end
     @papers = @category ? @category.elements.paginate(paginate_options) : Paper.paginate(paginate_options)
     respond_to do |format|
       format.html
