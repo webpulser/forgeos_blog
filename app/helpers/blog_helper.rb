@@ -1,5 +1,5 @@
 module BlogHelper
-  def seo_paper_path(paper)
-    blog_paper_path(:id => paper.url) 
+  def seo_paper_path(paper, options={})
+    blog_paper_path(options.merge(:id => paper.url))
   end
 end
