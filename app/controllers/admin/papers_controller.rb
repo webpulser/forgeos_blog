@@ -2,7 +2,8 @@ class Admin::PapersController < Admin::BaseController
   cache_sweeper :paper_sweeper, :only => [:create, :update, :destroy]
   before_filter :get_paper, :only => [:edit, :update, :destroy, :show]
   before_filter :new_paper, :only => [:new, :create]
- 
+  before_filter :get_tags, :only => [:update, :create]
+  
   def url
     render :text => Forgeos::url_generator(params[:url])
   end
@@ -82,6 +83,10 @@ private
   
   def new_paper
     @paper = Paper.new(params[:paper])
+  end
+  
+  def get_tags
+    params[:paper][:tag_list]= params[:tag_list].join(',')
   end
 
   def sort

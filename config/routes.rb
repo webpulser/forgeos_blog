@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.namespace :blog do |blog|
     blog.resources :papers, :has_many => :comments, :only => [:show,:index], :as => :posts
+    blog.tags 'tags/:tag_name', :controller => 'tags', :action => 'index'
     blog.paper_category 'categories/:blog_category_id', :controller => 'papers', :action => 'index'
     blog.root :controller => 'papers', :action => 'index'
   end
