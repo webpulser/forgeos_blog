@@ -26,6 +26,6 @@
         = link_to I18n.t('cancel').capitalize, '#', :class => 'back-link'
 
     .widget-actions
-      = link_to '','#', :class => 'small-icons edit-link'
-      = link_to_function '', "remove_comment($(this));", :class => 'small-icons destroy-link'
+      = link_to '','#', :class => 'small-icons edit-link', :id => "edit-comment-#{item.id}"
+      = link_to_function '', "remove_comment($(this));", :class => 'small-icons destroy-link', :id => "delete-comment-#{item.id}"
     .clear
