@@ -1,6 +1,6 @@
 class Blog::PapersController < ApplicationController
   before_filter :get_defaults
-  caches_page :show, :unless => Proc.new { params[:format] == 'js' }
+  caches_page :show, :if => Proc.new { |c| c.request.format != 'js' }
   def index
     @category = PaperCategory.find_by_url(params[:blog_category_id]) || PaperCategory.find_by_id(params[:blog_category_id]) if params[:blog_category_id]
     paginate_options = {:page => params[:page], :per_page => (params[:per_page] || 5), :conditions => { :state => 'published'}}
