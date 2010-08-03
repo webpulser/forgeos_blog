@@ -18,7 +18,7 @@ class Blog::TagsController < ApplicationController
           }
         }
       )
-      papers = tags.collect{ |t| t.taggable }.uniq!
+      papers = tags.collect{ |t| t.taggable }.uniq
       unless papers.nil?
         @papers = papers.paginate(paginate_options)
       end
