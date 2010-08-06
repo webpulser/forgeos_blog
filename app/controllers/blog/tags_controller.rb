@@ -7,18 +7,19 @@ class Blog::TagsController < ApplicationController
       paginate_options = {
         :page => params[:page],
         :per_page => (params[:per_page] || 5),
-        :conditions => { :state => 'published'}
       }
 
+      # OPTIMIZE
       tags = ActsAsTaggableOn::Tagging.all(
         :include => :tag,
         :conditions => {
           :tags => {
             :name => params[:tag_name].humanize
-          }
+          },
+          :taggable_type => 'Paper'
         }
       )
-      papers = tags.collect{ |t| t.taggable }.uniq
+      papers = tags.map(&:taggable).uniq.select{ |p| p.state == 'published' }
       unless papers.nil?
         @papers = papers.paginate(paginate_options)
       end

@@ -4,6 +4,7 @@ module BlogHelper
   end
   
   def tags
+    # FIXME count taggable only if it state is 'published'
     ActsAsTaggableOn::Tag.count(:name, :joins => 'INNER JOIN taggings ON taggings.tag_id = tags.id' , :conditions => { :taggings => { :taggable_type => 'Paper'}}, :group => 'name', :select => 'name', :limit => 100 )
   end
   
