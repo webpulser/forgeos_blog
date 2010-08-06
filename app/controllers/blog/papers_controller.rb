@@ -48,7 +48,7 @@ class Blog::PapersController < ApplicationController
 
   private
   def get_defaults
-    @last_papers = Paper.all(:order => 'published_at DESC', :limit => 5)
+    @last_papers = Paper.all(:conditions => { :state => 'published' }, :order => 'published_at DESC', :limit => 5)
     @categories = PaperCategory.all
   end
 end
