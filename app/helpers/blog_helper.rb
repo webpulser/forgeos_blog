@@ -3,11 +3,10 @@ module BlogHelper
     blog_paper_path(options.merge(:id => paper.url))
   end
   
-<<<<<<< HEAD
   def seo_paper_cache_sweeper_path(url, options={})
     blog_paper_path(options.merge(:id => url))
   end
-=======
+  
   def tags
     # FIXME count taggable only if it state is 'published'
     ActsAsTaggableOn::Tag.count(:name, :joins => 'INNER JOIN taggings ON taggings.tag_id = tags.id' , :conditions => { :taggings => { :taggable_type => 'Paper'}}, :group => 'name', :select => 'name', :limit => 100 )
@@ -27,5 +26,4 @@ module BlogHelper
     }
   end
   
->>>>>>> 9382ad96c8840b524962a41f6522ff08c2a1a0fc
 end
