@@ -1,6 +1,7 @@
 class Blog::PapersController < ApplicationController
   before_filter :get_defaults
   caches_page :show, :if => Proc.new { |c| c.request.format != 'js' }
+  
   def index
     
     if params[:tag_name]
@@ -12,8 +13,12 @@ class Blog::PapersController < ApplicationController
     paginate_options = {:page => params[:page], :per_page => (params[:per_page] || 5), :conditions => { :state => 'published'}}
     case params[:sort_by]
     when 'popularity'
-      paginate_options[:order] = "sum(#{PaperViewedCounter.table_name}.counter) DESC"
+      paginate_options[:order] = "sum(#{PaperViewedCounter.table_name}.counter) DESC, papers.id DESC"
       paginate_options[:include] = :viewed_counters
+      paginate_options[:group] = "papers.id"
+    when 'commented'
+      paginate_options[:order] = "COUNT(#{Comment.table_name}.id) DESC, papers.id DESC"
+      paginate_options[:include] = :comments
       paginate_options[:group] = "papers.id"
     else
       paginate_options[:order] = 'papers.published_at DESC, papers.id DESC'
