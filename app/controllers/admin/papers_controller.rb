@@ -64,6 +64,8 @@ class Admin::PapersController < Admin::BaseController
   # ==== Output
   #  if destroy succed, return the Categories list
   def destroy
+    #set page_url for cache sweeper
+    @paper.paper_url = @paper.translations.collect(&:url)
     if @paper.destroy
       flash[:notice] = t('paper.destroy.success').capitalize
     else

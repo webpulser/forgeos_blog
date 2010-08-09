@@ -29,7 +29,7 @@ class PaperSweeper < ActionController::Caching::Sweeper
   end
 
   def expire_cache_for_paper(paper)
-    expire_page(seo_paper_path(paper))
+    paper.paper_url.collect{ |url| expire_page(seo_paper_cache_sweeper_path(url))} unless paper.paper_url.nil?
   end
 
   def expire_all_papers

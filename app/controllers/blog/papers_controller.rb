@@ -10,7 +10,7 @@ class Blog::PapersController < ApplicationController
       paginate_options[:include] = :viewed_counters
       paginate_options[:group] = "papers.id"
     else
-      paginate_options[:order] = 'papers.published_at DESC'
+      paginate_options[:order] = 'papers.published_at DESC, papers.id DESC'
     end
     @papers = @category ? @category.elements.paginate(paginate_options) : Paper.paginate(paginate_options)
     respond_to do |format|
