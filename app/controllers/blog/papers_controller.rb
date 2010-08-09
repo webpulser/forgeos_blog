@@ -1,8 +1,14 @@
 class Blog::PapersController < ApplicationController
   before_filter :get_defaults
-  caches_page :show, :unless => Proc.new { params[:format] == 'js' }
+  caches_page :show, :if => Proc.new { |c| c.request.format != 'js' }
   def index
-    @category = PaperCategory.find_by_url(params[:blog_category_id]) || PaperCategory.find_by_id(params[:blog_category_id]) if params[:blog_category_id]
+    
+    if params[:tag_name]
+      @tags = ActsAsTaggableOn::Tagging.all(:include => :tag, :conditions => { :tags => { :name => params[:tag_name].humanize }})
+    else
+      @category = PaperCategory.find_by_url(params[:blog_category_id]) || PaperCategory.find_by_id(params[:blog_category_id]) if params[:blog_category_id]
+    end
+    
     paginate_options = {:page => params[:page], :per_page => (params[:per_page] || 5), :conditions => { :state => 'published'}}
     case params[:sort_by]
     when 'popularity'
@@ -12,7 +18,13 @@ class Blog::PapersController < ApplicationController
     else
       paginate_options[:order] = 'papers.published_at DESC, papers.id DESC'
     end
-    @papers = @category ? @category.elements.paginate(paginate_options) : Paper.paginate(paginate_options)
+    
+    if params[:tag_name]
+      @paper = @tags.collect{ |t| t.papers }.paginate(paginate_options)
+    else
+      @papers = @category ? @category.elements.paginate(paginate_options) : Paper.paginate(paginate_options)
+    end
+    
     respond_to do |format|
       format.html
       format.atom
@@ -36,7 +48,7 @@ class Blog::PapersController < ApplicationController
 
   private
   def get_defaults
-    @last_papers = Paper.all(:order => 'created_at DESC', :limit => 5)
+    @last_papers = Paper.latest(:limit => 5)
     @categories = PaperCategory.all
   end
 end

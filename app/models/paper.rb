@@ -40,4 +40,9 @@ class Paper < ActiveRecord::Base
   end
 
   alias_method :aasm_current_state_with_event_firing, :aasm_current_state
+
+
+  def self.latest(options = {})
+    all(options.merge({:conditions => { :state => 'published' }, :order => 'published_at DESC'}))
+  end
 end

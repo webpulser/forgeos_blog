@@ -25,3 +25,17 @@
       %ul
         = render :partial => 'admin/categories/associated_elements', :locals => { :association_id => 'category_ids', :element => paper, :category_ids => paper.category_ids, :categories => PaperCategory.find_all_by_parent_id(nil) }
     .clear
+  #paper_tags.step.open
+    %a.small-icons.step-title{ :href => "#" }
+      Tags
+    .inner-step.tags
+      .wrap_tags
+        -#TODO write good css for tags to remove inline styles 
+        = hidden_field_tag 'tag_list[]', ''
+        %input#tag.backgrounds{ :name => "tag", :type => "text", :title => I18n.t('tag_enter').capitalize, :class => 'defaultValue' }
+        - f.object.tag_list.each do |tag|
+          %span{ :style => 'margin: 5px'}
+            = tag
+            = hidden_field_tag 'tag_list[]', tag
+            = link_to '&nbsp;', '#', :class => 'big-icons gray-destroy', :style => 'position: relative !important;float: right;top:0;right: 0;padding: 0; margin: 0 0 0 5px '
+      .clear
