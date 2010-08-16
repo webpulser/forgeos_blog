@@ -45,4 +45,8 @@ class Paper < ActiveRecord::Base
   def self.latest(options = {})
     all(options.merge({:conditions => { :state => 'published' }, :order => 'published_at DESC'}))
   end
+  
+  def paper_url
+    self.translations.collect(&:url)
+  end
 end

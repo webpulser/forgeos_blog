@@ -7,7 +7,6 @@ class Blog::CommentsController < ApplicationController
   skip_before_filter :verify_authenticity_token
   def create
     @paper = Paper.find(params[:paper_id])
-    @paper.paper_url = @paper.translations.collect(&:url)
     @comment = @paper.comments.build(params[:comment])
     unless @comment.spam?
       if @comment.valid?
