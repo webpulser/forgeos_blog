@@ -19,4 +19,9 @@ class Comment < ActiveRecord::Base
   def skip_validates_presence_of_comment?
     false
   end
+  
+  def self.latest(options = {})
+    all(options.merge({:conditions => { :commentable_type => 'Paper' }, :order => 'created_at DESC'}))
+  end
+
 end

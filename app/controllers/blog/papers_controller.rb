@@ -53,6 +53,7 @@ class Blog::PapersController < ApplicationController
 
   private
   def get_defaults
+    @last_comments = Comment.latest(:limit => 5)
     @last_papers = Paper.latest(:limit => 5)
     @categories = PaperCategory.all
   end
