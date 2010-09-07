@@ -7,20 +7,30 @@ class Comment < ActiveRecord::Base
   validates_presence_of :comment, :unless => :skip_validates_presence_of_comment?
   rakismet_attrs :content => :comment, :author => :author_name, :comment_type => 'comment'
 
+  def author_name
+    super unless author
+    author.fullname
+  end
+
+  def author_email
+    super unless author
+    author.email
+  end
+
   private
   def skip_validates_presence_of_author_name?
-    false
+    author
   end
 
   def skip_validates_presence_of_author_email?
-    false
+    author
   end
 
   def skip_validates_presence_of_comment?
     false
   end
-  
-  def self.latest(options = {})
+
+  def self.latest_paper_comments(options = {})
     all(options.merge({:conditions => { :commentable_type => 'Paper' }, :order => 'created_at DESC'}))
   end
 
