@@ -22,7 +22,7 @@ class PaperSweeper < ActionController::Caching::Sweeper
     when PaperCategory
       expire_all_papers
     when Comment
-      expire_cache_for_paper(record.commentable)
+      expire_cache_for_paper(record.commentable) if record.commentable.kind_of?(Paper)
     else
       true
     end
