@@ -1,6 +1,14 @@
 module BlogHelper
-  def seo_paper_path(paper, options={})
-    blog_paper_path(options.merge(:id => paper.url))
+  def seo_paper_path(*args)
+    options = args.extract_options!
+    object = args.first
+    blog_paper_path(options.merge(:id => object.url))
+  end
+
+  def seo_paper_url(*args)
+    options = args.extract_options!
+    object = args.first
+    seo_paper_path(object,options.merge(:only_path => false))
   end
 
   def seo_paper_cache_sweeper_path(url, options={})
