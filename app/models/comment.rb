@@ -8,13 +8,11 @@ class Comment < ActiveRecord::Base
   rakismet_attrs :content => :comment, :author => :author_name, :comment_type => 'comment'
 
   def author_name
-    return super unless author
-    author.fullname
+    author ? author.fullname : super
   end
 
   def author_email
-    return super unless author
-    author.email
+    author ? author.email : super
   end
 
   private
