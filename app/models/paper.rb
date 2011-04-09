@@ -41,6 +41,12 @@ class Paper < ActiveRecord::Base
 
   alias_method :aasm_current_state_with_event_firing, :aasm_current_state
 
+  named_scope :popularity, lambda { {
+      :order => "sum(#{PaperViewedCounter.table_name}.counter) DESC, papers.id DESC",
+      :include => :viewed_counters,
+      :group => "papers.id",
+    }
+  }
 
   def self.latest(options = {})
     all(options.merge({:conditions => { :state => 'published' }, :order => 'published_at DESC'}))
