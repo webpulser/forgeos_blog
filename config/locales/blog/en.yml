@@ -14,5 +14,9 @@ en:
     create:
       action: create a paper
     published_at: published at
+    picture:
+      name: Picture
+      change: Modify the picture
+      add: Add a picture
   comment:
     author_email: email

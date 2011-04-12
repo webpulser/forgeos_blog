@@ -14,5 +14,9 @@ fr:
     create:
       action: créer un article
     published_at: publié le
+    picture:
+      name: Visuel
+      change: Changer le visuel
+      add: Ajouter un visuel
   comment:
     author_email: courriel

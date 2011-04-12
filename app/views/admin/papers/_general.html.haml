@@ -9,6 +9,8 @@
     = f.label :content, t(:content)
     %div= f.text_area :content, :class => 'mceEditor'
     .clear
+    = display_visual(f.object_name, f.object.picture)
+
 #right-sidebar.grid_4.omega
   .step.status.open
     - states_for_select = Paper.aasm_states.collect{ |state| [t(state.name, :scope => [:paper,:states]),state.name.to_s] }
@@ -39,3 +41,5 @@
             = hidden_field_tag 'tag_list[]', tag
             = link_to '&nbsp;', '#', :class => 'big-icons gray-destroy', :style => 'position: relative !important;float: right;top:0;right: 0;padding: 0; margin: 0 0 0 5px '
       .clear
+
+= render :partial => 'admin/visual/visual_popup.html.haml', :locals => {:form => f}
