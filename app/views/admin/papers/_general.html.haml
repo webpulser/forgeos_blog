@@ -23,7 +23,7 @@
   .step.open
     %a.small-icons.step-title{ :href => "#" }
       = "#{I18n.t('folder.associated_to').capitalize} :"
-    #association-static-content-tree.inner-step.init-tree
+    #association-paper-tree.inner-step.init-tree
       %ul
         = render :partial => 'admin/categories/associated_elements', :locals => { :association_id => 'category_ids', :element => paper, :category_ids => paper.category_ids, :categories => PaperCategory.find_all_by_parent_id(nil) }
     .clear
