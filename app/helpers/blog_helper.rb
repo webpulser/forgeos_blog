@@ -36,4 +36,8 @@ module BlogHelper
       yield t[0], classes[(t[1].to_i - min) / divisor]
     end
   end
+
+  def resumer(content, options = {})
+    truncate(content.gsub(/<\/?[^>]*>/, ""), { :length => 500 }.update(options))
+  end
 end
