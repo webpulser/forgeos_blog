@@ -1,12 +1,9 @@
 .grid_12.alpha
   .inner-content
-    = f.label :name, t(:name)
-    %div= f.text_field :name, :class => 'big_orange_input'
-    .clear
-    = f.label :description, t(:description)
+    = f.label :description
     %div= f.text_area :description, :cols => 90, :rows => 5
     .clear
-    = f.label :content, t(:content)
+    = f.label :content
     %div= f.text_area :content, :class => 'mceEditor'
     .clear
     = display_visual(f.object_name, f.object.picture)

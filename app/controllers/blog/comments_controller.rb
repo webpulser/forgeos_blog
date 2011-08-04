@@ -1,4 +1,3 @@
-require 'rakismet/controller'
 class Blog::CommentsController < ApplicationController
   include Rakismet::Controller
   include BlogHelper
@@ -17,6 +16,6 @@ class Blog::CommentsController < ApplicationController
     else
       flash[:notice] = @comment.akismet_response
     end
-    redirect_to(seo_paper_path(@paper))
+    redirect_to([:seo, @paper])
   end
 end

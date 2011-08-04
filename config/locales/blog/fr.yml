@@ -3,7 +3,6 @@ fr:
     menu:
       papers: articles de blog
   paper:
-    posted: Par %{by} le %{at}
     one: article de blog
     other: articles de blog
     all: Tous les articles
@@ -18,5 +17,7 @@ fr:
       name: Visuel
       change: Changer le visuel
       add: Ajouter un visuel
+    destroy:
+      confirm: Êtes vous sûre de vouloir supprimer cet article ?
   comment:
     author_email: courriel

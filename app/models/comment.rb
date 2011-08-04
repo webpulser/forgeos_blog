@@ -1,10 +1,9 @@
-require File.join(Rails.root,'vendor','plugins','forgeos_cms','app','models','comment')
-require 'rakismet/model'
+load File.join(Gem.loaded_specs['forgeos_cms'].full_gem_path,'app','models','comment.rb')
 class Comment < ActiveRecord::Base
   include Rakismet::Model
-  validates_presence_of :author_name, :unless => :skip_validates_presence_of_author_name?
-  validates_presence_of :author_email, :unless => :skip_validates_presence_of_author_email?
-  validates_presence_of :comment, :unless => :skip_validates_presence_of_comment?
+  validates :author_name, :unless => :skip_validates_presence_of_author_name?, :presence => true
+  validates :author_email, :unless => :skip_validates_presence_of_author_email?, :presence => true
+  validates :comment, :unless => :skip_validates_presence_of_comment?, :presence => true
   rakismet_attrs :content => :comment, :author => :author_name, :comment_type => 'comment'
 
   def author_name

@@ -1,14 +1,13 @@
 class Paper < ActiveRecord::Base
-  include AASM
   acts_as_taggable
   acts_as_commentable
+  attr_accessor :paper_url
   accepts_nested_attributes_for :comments, :allow_destroy => true
-  has_and_belongs_to_many_attachments
+
   belongs_to :picture
 
-  attr_accessor :paper_url
-
   belongs_to :author, :foreign_key => 'person_id', :class_name => 'Person'
+
   has_one :meta_info, :as => :target
   accepts_nested_attributes_for :meta_info
 
@@ -16,9 +15,11 @@ class Paper < ActiveRecord::Base
 
   translates :name, :content, :url, :description
 
-  validates_presence_of :url, :name, :content, :person_id
+  validates :url, :name, :content, :person_id, :presence => true
 
   has_many :viewed_counters, :as => :element, :class_name => 'PaperViewedCounter'
+
+  include AASM
 
   aasm_column :state
   aasm_initial_state :draft
@@ -42,19 +43,15 @@ class Paper < ActiveRecord::Base
 
   alias_method :aasm_current_state_with_event_firing, :aasm_current_state
 
-  named_scope :published, lambda { { :conditions => { :state => 'published'} } }
-  named_scope :popularity, lambda { {
+  scope :popularity, lambda { {
       :order => "sum(#{PaperViewedCounter.table_name}.counter) DESC, papers.id DESC",
       :include => :viewed_counters,
       :group => "papers.id",
     }
   }
+  scope :latest, lambda { { :conditions => { :state => 'published' }, :order => 'published_at DESC'} }
 
-  def self.latest(options = {})
-    all(options.merge({:conditions => { :state => 'published' }, :order => 'published_at DESC'}))
-  end
-  
-  def paper_url
+  def paper_urls
     self.translations.collect(&:url)
   end
 end

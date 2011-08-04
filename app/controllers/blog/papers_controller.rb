@@ -38,15 +38,8 @@ class Blog::PapersController < ApplicationController
   end
 
   def show
-    if @paper = Paper.find_by_url(params[:id])
-      unless cookies[:paper_view_counter] && cookies[:paper_view_counter].include?(@paper.id)
-        @paper.viewed_counters.new.increment_counter
-        counter = cookies[:paper_view_counter] ? cookies[:paper_view_counter] :  []
-        counter << @paper.id
-        cookies[:paper_view_counter] = { :value => counter, :expires => 1.day.from_now }
-      end
-    else
-      render(:nothing => true, :status => 404)
+    unless @paper = Paper.find_by_url(params[:id])
+      page_not_found
     end
   end
 

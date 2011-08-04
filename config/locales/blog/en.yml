@@ -3,7 +3,6 @@ en:
     menu:
       papers: blog posts
   paper:
-    posted: By %{by} the %{at}
     one: blog post
     other: blog posts
     all: All blog posts
@@ -18,5 +17,7 @@ en:
       name: Picture
       change: Modify the picture
       add: Add a picture
+    destroy:
+      confirm: Are your sure to destroy this paper ?
   comment:
     author_email: email

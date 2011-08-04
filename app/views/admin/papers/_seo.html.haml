@@ -4,7 +4,7 @@
       = I18n.t('permalink').capitalize
       \:
     .option-panel-content
-      = "#{request.protocol}#{request.host}#{seo_paper_path(f.object.class.new(:url=>'&nbsp;'))}"
+      = seo_paper_url(f.object.class.new(:url=>'_'))
       = f.text_field :url
   .fieldset.open
     %h3= t(:meta_info, :count => 1)

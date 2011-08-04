@@ -1,3 +1,4 @@
+load File.join(Gem.loaded_specs['forgeos_cms'].full_gem_path, 'app', 'controllers', 'admin', 'import_controller.rb')
 class Admin::ImportController < Admin::BaseController
   before_filter :blog_models, :only => :index
 

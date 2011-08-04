@@ -1,12 +1,20 @@
 = render :partial => 'admin/menus/lang_switcher'
-- form_for [:admin, paper], :html => { :id => 'wrap' } do |f|
-  = render :partial => 'tabs_show'
-  #content.grid_16.alpha.omega
-    #general{:style => 'padding: 0'}
+= render :partial => 'tabs'
+= form_for [forgeos_blog, :admin, paper], :html => { :id => 'wrap' } do |f|
+  #blocks-header.ui-tabs.ui-widget.ui-widget-content.ui-corner-all
+    %ul.ui-tabs-nav.ui-helper-reset.ui-helper-clearfix.ui-widget-header.ui-corner-all
+      %li.ui-state-default.ui-corner-top.ui-tabs-selected.ui-state-active= link_to t(:general), '#general', :class => 'selected'
+      %li.ui-state-default.ui-corner-top= link_to t(:comment,:count => 2), '#comments'
+      %li.ui-state-default.ui-corner-top= link_to t(:seo), '#seo'
+    .backgrounds.big-header
+      = f.text_field :name, :class => 'field_name big_orange_input'
+      .interact-links
+        = Forgeos_save_buttons [forgeos_blog, :admin, :papers]
+    #general
       = render :partial => 'general', :locals => {:f => f, :paper => paper }
       .clear
-    #comments{:style => 'padding: 0'}
+    #comments
       = render :partial => 'comments', :locals => { :f => f, :paper => paper }
-    #seo{:style => 'padding: 0'}
+    #seo
       = render :partial => 'seo', :locals => { :f => f, :paper => paper }
     .clear

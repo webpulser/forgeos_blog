@@ -1,13 +1,17 @@
-ActionController::Routing::Routes.draw do |map|
-  map.namespace :blog do |blog|
-    blog.resources :papers, :has_many => :comments, :only => [:show,:index], :as => :posts
-    blog.tags 'tags/:tag_name', :controller => 'tags', :action => 'index'
-    blog.paper_category 'categories/:blog_category_id', :controller => 'papers', :action => 'index'
-    blog.root :controller => 'papers', :action => 'index'
+Forgeos::Blog::Engine.routes.draw do
+  namespace :blog do
+    root :to => 'papers#index'
+    resources :papers, :only => [:show,:index], :path => 'posts' do
+      resources :comments
+    end
+    match 'tags/:tag_name' => 'tags#index', :as => :tags
+    match 'categories/:blog_category_id' => 'papers#index', :as => :paper_category
   end
 
-  map.namespace :admin do |admin|
-    admin.resources :papers, :has_many => :comments
-    admin.resources "paper_categories", :controller => 'categories', :requirements => { :type => "paper_category" }
+  namespace :admin do
+    resources :papers do
+      resources :comments
+    end
+    resources :paper_categories, :controller => 'categories', :type => 'paper_category'
   end
 end
