@@ -33,12 +33,12 @@ gem 'thinking-sphinx', '>= 2.0.5'
 gem 'webpulser-habtm_list', '>= 0.1.2'
 gem 'will_paginate', '~> 3.0.pre4'
 gem 'authlogic', '>= 3.0.3'
-gem 'forgeos_core', '>= 1.9.2'
+gem 'forgeos_core', '>= 1.9.3'
 gem 'acts_as_commentable', '>= 3.0.1'
-gem 'forgeos_cms', '>= 1.9.1'
+gem 'forgeos_cms', '>= 1.9.2'
 gem 'aasm', '>= 2.2.0'
 gem 'rakismet', '>= 1.1.0'
-gem 'forgeos_blog', '>= 1.9.0'
+gem 'forgeos_blog', '>= 1.9.1'
 </code></pre>
 # mount gems into your config/routes.rb file :
 <pre><code class="ruby">
