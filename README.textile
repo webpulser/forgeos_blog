@@ -1,6 +1,6 @@
 h1. ForgeosBlog
 
-ForgeosCMS is a Blog plugin for ruby on rails applications and a part of the "Forgeos Suite":http://forgeos.com
+ForgeosBlog is a Blog plugin for ruby on rails applications and a part of the "Forgeos Suite":http://forgeos.com
 This branch work with rails 3.1.0.rc5 and is distributed as a gem on "Rubygems.org":https://rubygems.org/gems/forgeos_blog
 
 
