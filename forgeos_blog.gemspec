@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
-  s.add_dependency 'forgeos_cms', '>= 1.9.1'
+  s.add_dependency 'forgeos_cms', '>= 1.9.2'
   s.add_dependency 'aasm', '>= 2.2.0'
   s.add_dependency 'rakismet', '>= 1.1.0'
   s.name = 'forgeos_blog'
-  s.version = '1.9.0'
-  s.date = '2011-08-04'
+  s.version = '1.9.1'
+  s.date = '2011-08-05'
 
   s.summary = 'Blog engine of Forgeos plugins suite'
   s.description = 'Forgeos Blog provide papers (blog posts), comments and tags management'
