@@ -1,5 +1,6 @@
 %ul.ui-tabs-nav.ui-helper-reset.ui-helper-clearfix.ui-widget-header.ui-corner-all
-  %li.ui-state-default.ui-corner-top.ui-tabs-selected.ui-state-active= link_to t('page', :count => 2).capitalize, '#content'
-  %li.ui-state-default.ui-corner-top= link_to t('block', :count => 2).capitalize, [forgeos_cms, :admin, :static_content_blocks]
-  %li.ui-state-default.ui-corner-top= link_to t('navigation').capitalize, [forgeos_cms, :admin, :menus]
-  %li.ui-state-default.ui-corner-top= link_to t(:paper, :count => 2).capitalize, [forgeos_blog, :admin, :papers]
+  %li.ui-state-default.ui-corner-top.ui-tabs-selected.ui-state-active= link_to I18n.t('page', :count => 2).capitalize, '#content'
+  %li.ui-state-default.ui-corner-top= link_to I18n.t('block', :count => 2).capitalize, [forgeos_cms, :admin, :static_content_blocks]
+  %li.ui-state-default.ui-corner-top= link_to I18n.t('navigation').capitalize, [forgeos_cms, :admin, :menus]
+  %li.ui-state-default.ui-corner-top= link_to I18n.t('actuality', :count => 2).capitalize, [forgeos_cms, :admin, :actualities]
+  %li.ui-state-default.ui-corner-top= link_to I18n.t(:paper, :count => 2).capitalize, [forgeos_blog, :admin, :papers]

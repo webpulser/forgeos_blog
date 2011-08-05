@@ -3,6 +3,7 @@
   %li.ui-state-default.ui-corner-top.ui-tabs-selected.ui-state-active= link_to I18n.t('block', :count => 2).capitalize, '#content'
   %li.ui-state-default.ui-corner-top= link_to I18n.t('navigation').capitalize, [forgeos_cms, :admin, :menus]
   %li.ui-state-default.ui-corner-top= link_to t(:paper, :count => 2).capitalize, [forgeos_blog, :admin, :papers]
-#blocks-header.backgrounds
-  = link_to I18n.t('static_content_block', :count => 1).capitalize, '#', :class => 'selected'
-  = link_to I18n.t('widget', :count => 2).capitalize, [forgeos_cms, :admin, :widgets]
+#sub-links
+  %ul
+    %li= link_to I18n.t('static_content_block', :count => 1).capitalize, '#', :class => 'selected'
+    %li= link_to I18n.t('widget', :count => 2).capitalize, [forgeos_cms, :admin, :widgets]
